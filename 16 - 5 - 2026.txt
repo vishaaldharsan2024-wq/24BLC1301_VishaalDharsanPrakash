@@ -1,0 +1,51 @@
+show databases;
+
+create database VITC;
+
+show databases;
+
+use vitc;
+
+create table CS(
+ sid int8,
+ sname varchar(50),
+ smarks int1
+ );
+ 
+ create table ECE(
+ sid int8,
+ sname varchar(50),
+ smarks int1
+ );
+ 
+ create table ECM(
+ sid int8,
+ sname varchar(50),
+ smarks int1
+ );
+ 
+ show tables from vitc;
+ 
+insert into cs values (1301, 'Vishaal',99);
+
+insert into cs values (1255, 'Anurag',90);
+
+insert into cs values (1255, 'Lokesh',80);
+
+insert into ecm values (1301, 'Vishaal',99);
+
+insert into ecm values (1255, 'Anurag',90);
+
+insert into ecm values (1255, 'Lokesh',80);
+
+insert into ece values (1301, 'Vishaal',99);
+
+insert into ece values (1255, 'Anurag',90);
+
+insert into ece values (1255, 'Lokesh',80);
+
+ select * from CS;
+ 
+ select * from ECE;
+ 
+ select * from ECM;

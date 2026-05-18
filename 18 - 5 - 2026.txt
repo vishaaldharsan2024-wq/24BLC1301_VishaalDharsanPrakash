@@ -1,0 +1,56 @@
+show databases;
+
+use vitc;
+
+create table student(
+sid int4,
+sname varchar(50),
+sdept varchar(20)
+);
+
+insert into student values (1301, 'Vishaal', 'ECM');
+insert into student values (1300, 'Arun', 'ECE');
+insert into student values (1333, 'Mani', 'CS');
+
+ALTER TABLE student ADD(
+    sCountry varchar(30) DEFAULT 'UAE'
+);
+
+ALTER TABLE student RENAME column 
+    Scountry TO SLocation;
+
+ALTER TABLE student DROP COLUMN SLocation ;
+
+UPDATE stu SET slocation = 'Uae' WHERE sid = 1333; 
+
+UPDATE stu SET gpa = gpa + 8 where sid = 1301;
+
+UPDATE stu SET gpa = gpa + 6.5 where sid = 1300;
+
+UPDATE stu SET gpa = gpa + 7.8 where sid = 1333;
+
+DELETE FROM stu WHERE sid = 1300;
+
+CREATE TABLE emp (eid int2);
+
+insert into emp values (101);
+select * from emp;
+
+savepoint time15;
+
+insert into emp values (102);
+
+savepoint time16;
+
+select * from emp;
+
+insert into emp values (103);
+savepoint time17;
+
+ROLLBACK to time17
+
+SELECT * FROM student WHERE Gpa > 7;
+
+SELECT * FROM student WHERE Gpa > 7 or slocation = "UAE";
+
+

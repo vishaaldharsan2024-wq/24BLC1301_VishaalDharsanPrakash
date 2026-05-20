@@ -1,0 +1,33 @@
+CREATE TABLE Persons(
+ID INT UNIQUE NOT NULL,
+firstname VARCHAR(50) NOT NULL DEFAULT 'John',
+lastname VARCHAR(50) NOT NULL,
+age INT2 NOT NULL,
+caste VARCHAR(20)
+);
+
+ALTER TABLE persons ADD CONSTRAINT UNIQUE (caste);
+
+ALTER TABLE Persons DROP CONSTRAINT Age;
+
+ALTER TABLE persons ADD CHECK (age >=18);
+
+create table category(
+cid int primary key,
+cname varchar(100) not null
+);
+desc category;
+
+insert into category values (101,'Electronics'),(102,'Home App'),(103,'Fashion'),('104','grocery');
+
+CREATE TABLE products (
+    pid int primary key,
+    pname varchar(100) NOT NULL,
+    cid int, 
+    FOREIGN KEY (cid) REFERENCES category(cid)
+);
+desc products;
+
+
+insert into products values (504,'JBL headphones', 101), (774, 'Levi jeans',103), (112, 'Ice cream', 104), (333,'washing machine',102);
+

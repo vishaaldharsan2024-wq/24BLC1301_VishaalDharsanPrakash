@@ -1,0 +1,52 @@
+DROP TABLE products;
+
+CREATE TABLE products (
+    pid int primary key,
+    pname varchar(100) NOT NULL,
+    cid int, 
+    FOREIGN KEY (cid) REFERENCES category(cid) ON DELETE CASCADE
+);
+
+delete from products where cid = 101;
+
+select * from products;
+
+DROP TABLE products;
+
+CREATE TABLE products (
+    pid int primary key,
+    pname varchar(100) NOT NULL,
+    cid int, 
+    FOREIGN KEY (cid) REFERENCES category(cid) ON UPDATE CASCADE
+);
+
+SELECT * FROM stu;
+
+SELECT sid, sname, GPA FROM stu ORDER BY GPA asc;
+
+SELECT sid, sname, GPA FROM stu ORDER BY sid desc;
+
+SELECT sdept, count(sname), avg(GPA) FROM stu WHERE sdept = 'ECM' GROUP BY sdept;
+
+SELECT sdept, avg(GPA) FROM stu GROUP BY sdept HAVING avg(GPA) >= 7;
+
+SELECT * FROM stu LIMIT 2 OFFSET 3;
+
+
+#QUESTION ASKED IN CLASS:-
+
+SELECT department, SUM(salary) FROM worker GROUP BY department;
+
+SELECT dept,SUM(salary) FROM Worker GROUP  BY DEPARTMENT ORDER BY SUM(SALARY) ASC LIMIT 2;
+
+SELECT first_name, dept, salary FROM worker WHERE department = 'admin' ORDER BY salary DESC LIMIT 1 OFFSET 1;
+
+select first_name, department, salary
+from worker w1
+where salary = (
+    select distinct salary
+    from worker w2
+    where w1.department = w2.department
+    order by salary desc
+    limit 1 offset 1
+);

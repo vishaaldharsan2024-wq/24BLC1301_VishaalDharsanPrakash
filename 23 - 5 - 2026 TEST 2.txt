@@ -1,0 +1,79 @@
+1.
+List the Employee Name, their Department Name, and the Location Name for all employees.
+
+select e.employee_name, d.dept_name, d.location_id from employees e join departments d on e.dept_id = d.dept_id;
+
+2.
+Retrieve the Project Name, Client Name, and the Total Hours Worked on that project, but only for projects managed by the 'Consulting' department.
+
+select p.project_name, p.client_name, sum(a.hours_worked) as total_hours_worked from projects p join departments d on p.dept_id = d.dept_id join assignments a on p.project_id = a.project_id where d.dept_name = 'Consulting' group by p.project_name, p.client_name;
+
+3.
+Find the names of Employees who have worked on a project with Client Name 'GlobalTech Solutions'. List the Employee Name and Project Name.
+
+select e.employee_name, p.project_name from employees e join assignments a on e.employee_id = a.employee_id join projects p on a.project_id = p.project_id where p.client_name = 'GlobalTech Solutions';
+
+4.
+List all Departments that have no Employees currently assigned to them.
+
+select d.dept_name from departments d left join employees e on d.dept_id = e.dept_id where e.employee_id is null;
+
+5.
+Show the Manager Name, the Department Name they manage, and the total number of direct reports they have.
+
+select m.employee_name as manager_name, d.dept_name, count(e.employee_id) as total_reports from employees e join employees m on e.manager_id = m.employee_id join departments d on m.dept_id = d.dept_id group by m.employee_name, d.dept_name;
+
+6.
+Calculate the Average Hours Worked per Employee across all projects. List the Employee Name and the average hours.
+
+select e.employee_name, avg(a.hours_worked) as average_hours from employees e join assignments a on e.employee_id = a.employee_id group by e.employee_name;
+
+7.
+Find the Department Name(s) that have an average salary above the company-wide average salary.
+
+select d.dept_name from employees e join departments d on e.dept_id = d.dept_id group by d.dept_name having avg(e.salary) > (select avg(salary) from employees);
+
+8.
+Identify the Client Name(s) whose projects have a total combined hours worked exceeding 500 hours.
+
+select p.client_name from projects p join assignments a on p.project_id = a.project_id group by p.client_name having sum(a.hours_worked) > 500;
+
+10.
+Calculate the total number of employees assigned to each Project, but only include projects that have more than 5 employees assigned.
+
+select p.project_name, count(a.employee_id) as total_employees from projects p join assignments a on p.project_id = a.project_id group by p.project_name having count(a.employee_id) > 5;
+
+13.
+Write a query to list the Employee Name and Project Name for any employee who has worked less than 10 hours on a project
+
+select e.employee_name, p.project_name from employees e join assignments a on e.employee_id = a.employee_id join projects p on a.project_id = p.project_id where a.hours_worked < 10;
+
+14.
+Find the Project Name(s) that have no assigned employees.
+
+select p.project_name from projects p left join assignments a on p.project_id = a.project_id where a.assignment_id is null;
+
+16.
+Assuming the Assignments table has a start_date column, find the Employee Name and their oldest project start date.
+
+select e.employee_name, min(a.start_date) as oldest_project_start_date from employees e join assignments a on e.employee_id = a.employee_id group by e.employee_name;
+
+17.
+Write a MySQL query using the DATE_FORMAT function to list all projects that were active in the year 2023.
+
+select project_name from projects where date_format(start_date, '%Y') = '2023';
+
+18.
+Use the MySQL-specific IFNULL function to list all Employee Names. If an employee has no manager, display "CEO" instead of NULL.
+
+select employee_name, ifnull(cast(manager_id as char), 'CEO') as manager from employees;
+
+20.
+Display the Project Name and a status ("High Activity" if total hours > 300, "Normal" otherwise) using the CASE statement.
+
+select p.project_name, case when sum(a.hours_worked) > 300 then 'High Activity' else 'Normal' end as status from projects p join assignments a on p.project_id = a.project_id group by p.project_name;
+
+21.
+List the Employee Name and their Manager's Name, even if the employee has no manager, or if a potential manager has no employees reporting to them.
+
+select e.employee_name as employee_name, m.employee_name as manager_name from employees e left join employees m on e.manager_id = m.employee_id;
